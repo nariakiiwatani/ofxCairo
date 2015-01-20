@@ -30,6 +30,23 @@ void ofxCairo::begin(bool savePdf, string pdfName)
     ofSetCurrentRenderer(_renderCollection);
 }
 
+void ofxCairo::begin(bool savePdf, string pdfName, bool multiPage, bool b3D, ofRectangle viewport)
+{
+	_savePdf = savePdf;
+	
+	if (savePdf)
+	{
+		_pdfRenderer = ofPtr<ofCairoRenderer>(new ofCairoRenderer);
+		_pdfRenderer->setup(pdfName, ofCairoRenderer::FROM_FILE_EXTENSION, multiPage, b3D, viewport);
+		cairo_set_line_cap(_pdfRenderer->getCairoContext(), _lineCap);
+		_renderCollection->renderers.push_back(_pdfRenderer);
+	}
+	
+	_origRenderer = ofGetCurrentRenderer();
+	ofSetCurrentRenderer(_renderCollection);
+}
+
+
 void ofxCairo::setLineCap(_cairo_line_cap lineCap)
 {
     cairo_set_line_cap(_imageRenderer->getCairoContext(), lineCap);

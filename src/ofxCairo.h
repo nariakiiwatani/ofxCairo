@@ -8,6 +8,7 @@ class ofxCairo
 public:
 	ofxCairo();
 	void begin(bool savePdf = false, string pdfName = "");
+	void begin(bool savePdf, string pdfName, bool multiPage_, bool b3D_, ofRectangle _viewport);
 	void end();
 	void draw();
 	void setLineCap(_cairo_line_cap lineCap);
